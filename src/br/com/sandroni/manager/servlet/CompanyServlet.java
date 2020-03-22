@@ -51,22 +51,8 @@ public class CompanyServlet extends HttpServlet {
 		Db db = new Db();
 		db.addCompany(company);
 		
-		RequestDispatcher dispacher = request.getRequestDispatcher("/company.jsp");
-		request.setAttribute("company",company.getName());
-		dispacher.forward(request, response);
+		response.sendRedirect("companies");
 
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		Db db = new Db();
-		List<Company> companies = db.getCompanies();
-		
-		req.setAttribute("companies", companies);
-
-	    RequestDispatcher rd = req.getRequestDispatcher("/companies.jsp");
-	    rd.forward(req,resp);
 	}
 
 }
