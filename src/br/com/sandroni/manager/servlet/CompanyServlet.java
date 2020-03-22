@@ -2,6 +2,9 @@ package br.com.sandroni.manager.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -30,9 +33,20 @@ public class CompanyServlet extends HttpServlet {
 
 		System.out.println("Cadastrando nova empresa");
 		String companyName = request.getParameter("companyName");
+		String paramDate = request.getParameter("createdat");
+		
+		Date createdAt = null;
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			createdAt =  sdf.parse(paramDate);
+		} catch (ParseException e) {
+			throw new ServletException(e);
+		}	
 		
 		Company company = new Company();
 		company.setName(companyName);
+		company.setCreatedAt(createdAt);
 		
 		Db db = new Db();
 		db.addCompany(company);

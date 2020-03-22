@@ -3,7 +3,8 @@
 <html>
 <body>
 	<form action="${linkServlet}" method="post">
-		<input type="text" name="companyName"/>
+		Empresa: <input type="text" name="companyName"/>
+		Data Abertura <input type="text" name="createdat"/>
 		<input type="submit" title="Enviar"/>
 	</form>
 	
