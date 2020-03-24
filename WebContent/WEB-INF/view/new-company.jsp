@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:url value="/company" var="linkServlet"/>
+<c:url value="/company?action=create" var="linkServlet"/>
 <html>
 <body>
 	<form action="${linkServlet}" method="post">

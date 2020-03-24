@@ -1,11 +1,8 @@
 package br.com.sandroni.manager.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,58 +11,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.sandroni.manager.database.Db;
-import br.com.sandroni.manager.model.Company;
+import br.com.sandroni.manager.services.CompanyService;
 
-/**
- * Servlet implementation class CompanyServlet
- */
 @WebServlet("/company")
 public class CompanyServlet extends HttpServlet {
+	
+	
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		System.out.println("Cadastrando nova empresa");
-		String companyName = request.getParameter("companyName");
-		String paramDate = request.getParameter("createdat");
-
-		Date createdAt = null;
-
+	
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String action = req.getParameter("action");
+		CompanyService service = new CompanyService();
+		String result = ":";
+		Method method = null;
+		
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			createdAt = sdf.parse(paramDate);
-		} catch (ParseException e) {
+			method = CompanyService.class.getMethod(action, HttpServletRequest.class,HttpServletResponse.class);
+			result = (String) method.invoke(service, req,resp);
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new ServletException(e);
 		}
-
-		Company company = new Company();
-		company.setName(companyName);
-		company.setCreatedAt(createdAt);
-
-		Db db = new Db();
-		db.addCompany(company);
-
-		response.sendRedirect("companies");
-
+		
+		String[] results = result.split(":");
+		
+		if(results[0].equals("foward")) {
+			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/view/"+results[1]);
+			rd.forward(req, resp);
+		}
+		
+		if(results[0].equals("redirect")) {
+			resp.sendRedirect(results[1]);
+		}
 	}
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String paramId = req.getParameter("id");
-		int id = Integer.valueOf(paramId);
-		Db db = new Db();
-		Company company = db.findCompanyId(id);
-
-		req.setAttribute("company", company);
-
-		RequestDispatcher rd = req.getRequestDispatcher("/editCompany.jsp");
-		rd.forward(req, resp);
-	}
 
 }

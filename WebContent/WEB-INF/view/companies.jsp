@@ -16,8 +16,8 @@
 		<c:forEach items="${companies}" var="company">
 			<li>
 			    ${company.name } -  <fmt:formatDate value="${company.createdAt}" pattern="dd/MM/yyyy"/>
-			    <a href="/manager/company/remove?id=${company.id}" data-confirm="Tem certeza" data-method="delete">Remover</a>
-			    <a href="/manager/company?id=${company.id}">Editar</a>
+			    <a href="/manager/company?action=delete&id=${company.id}" data-confirm="Tem certeza" data-method="delete">Remover</a>
+			    <a href="/manager/company?action=read&id=${company.id}">Editar</a>
 			</li>
 		</c:forEach>
 	</ul>
