@@ -34,25 +34,38 @@ public class CompanyServlet extends HttpServlet {
 		System.out.println("Cadastrando nova empresa");
 		String companyName = request.getParameter("companyName");
 		String paramDate = request.getParameter("createdat");
-		
+
 		Date createdAt = null;
-		
+
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			createdAt =  sdf.parse(paramDate);
+			createdAt = sdf.parse(paramDate);
 		} catch (ParseException e) {
 			throw new ServletException(e);
-		}	
-		
+		}
+
 		Company company = new Company();
 		company.setName(companyName);
 		company.setCreatedAt(createdAt);
-		
+
 		Db db = new Db();
 		db.addCompany(company);
-		
+
 		response.sendRedirect("companies");
 
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String paramId = req.getParameter("id");
+		int id = Integer.valueOf(paramId);
+		Db db = new Db();
+		Company company = db.findCompanyId(id);
+
+		req.setAttribute("company", company);
+
+		RequestDispatcher rd = req.getRequestDispatcher("/editCompany.jsp");
+		rd.forward(req, resp);
 	}
 
 }
