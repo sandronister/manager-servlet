@@ -11,7 +11,9 @@
 <title>Companies List Java Tag Libs</title>
 </head>
 <body>
-
+	User Login ${userLogin.login}
+	<br/>
+	<br/>
 	<ul>
 		<c:forEach items="${companies}" var="company">
 			<li>

@@ -11,30 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.sandroni.manager.services.CompanyService;
 import br.com.sandroni.manager.services.UserService;
 
-@WebServlet("/company")
-public class CompanyServlet extends HttpServlet {
-	
-	
+@WebServlet("/user")
+public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
-	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
-		CompanyService service = new CompanyService();
-		UserService userService = new UserService();
+		UserService service = new UserService();
 		String result = ":";
 		Method method = null;
 		
-		if(!userService.IsLogin(req,resp)) {
-			return;
-		}
-		
 		try {
-			method = CompanyService.class.getMethod(action, HttpServletRequest.class,HttpServletResponse.class);
+			method = UserService.class.getMethod(action, HttpServletRequest.class,HttpServletResponse.class);
 			result = (String) method.invoke(service, req,resp);
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new ServletException(e);
@@ -50,7 +40,7 @@ public class CompanyServlet extends HttpServlet {
 		if(results[0].equals("redirect")) {
 			resp.sendRedirect(results[1]);
 		}
+		
 	}
-
 
 }

@@ -5,10 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import br.com.sandroni.manager.model.Company;
+import br.com.sandroni.manager.model.User;
 
 public class Db {
 
 	private static List<Company> companies = new ArrayList<Company>();
+	private static List<User> users = new ArrayList<User>();
+	
 	private static int sequecial_key =1; 
 	
 	static {
@@ -21,6 +24,16 @@ public class Db {
 		comp2.setId(Db.sequecial_key++);
 		comp2.setName("Caelum");
 		Db.companies.add(comp2);
+		
+		User u1 = new User();
+		u1.setLogin("lm1");
+		u1.setPassword("123");
+		Db.users.add(u1);
+		
+		User u2 = new User();
+		u2.setLogin("lm2");
+		u2.setPassword("123");
+		Db.users.add(u2);
 	}
 	
 	public void addCompany(Company company) {
@@ -56,6 +69,19 @@ public class Db {
 		}
 		
 		return null;
+	}
+
+	public User exists(String login, String password) {
+		
+		User result = null;
+		
+		for (User user : users) {
+			if(user.IsEqual(login, password)) {
+				return user;
+			}
+		}
+		
+		return result;
 	}
 
 }

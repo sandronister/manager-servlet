@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.sandroni.manager.database.Db;
 import br.com.sandroni.manager.model.Company;
 
-public class CompanyService implements IActions {
+public class CompanyService implements CompanyActions {
 
 	public String list(HttpServletRequest req,HttpServletResponse resp)  {
 		Db db = new Db();
