@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.sandroni.manager.services.CompanyService;
-import br.com.sandroni.manager.services.UserService;
 
 @WebServlet("/company")
 public class CompanyServlet extends HttpServlet {
@@ -25,13 +24,9 @@ public class CompanyServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
 		CompanyService service = new CompanyService();
-		UserService userService = new UserService();
 		String result = ":";
 		Method method = null;
-		
-		if(!userService.IsLogin(req,resp)) {
-			return;
-		}
+	
 		
 		try {
 			method = CompanyService.class.getMethod(action, HttpServletRequest.class,HttpServletResponse.class);
