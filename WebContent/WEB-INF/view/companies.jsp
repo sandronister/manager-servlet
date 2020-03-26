@@ -11,6 +11,7 @@
 <title>Companies List Java Tag Libs</title>
 </head>
 <body>
+	<c:import url="logout-parcial.jsp"/>
 	User Login ${userLogin.login}
 	<br/>
 	<br/>

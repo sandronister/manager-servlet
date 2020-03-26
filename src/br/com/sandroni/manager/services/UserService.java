@@ -43,9 +43,15 @@ public class UserService {
 			return false;
 		}
 		
-		return true;
+		return true;	
 		
+	}
+	
+	public String logout(HttpServletRequest req,HttpServletResponse resp) throws IOException {
 		
+		HttpSession session = req.getSession();
+		session.invalidate();
+		return "redirect:user?action=login";
 	}
 	
 	
