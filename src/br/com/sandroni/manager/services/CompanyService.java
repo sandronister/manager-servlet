@@ -18,6 +18,7 @@ public class CompanyService implements CompanyActions {
 		Db db = new Db();
 		List<Company> companies = db.getCompanies();
 
+		System.out.println(companies);
 		req.setAttribute("companies", companies);
 
 		return "foward:companies.jsp";

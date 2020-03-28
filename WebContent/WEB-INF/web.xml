@@ -12,26 +12,6 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>/faces/*</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>CompaniesServlet</display-name>
-		<servlet-name>CompaniesServlet</servlet-name>
-		<servlet-class>br.com.sandroni.manager.servlet.OiMundoServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CompaniesServlet</servlet-name>
-		<url-pattern>/CompaniesServlet</url-pattern>
-	</servlet-mapping>
-
 
 	<filter>
 		<filter-name>AF</filter-name>
